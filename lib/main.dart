@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reddit_clone/features/auth/screen/login_screen.dart';
 import 'package:flutter_reddit_clone/firebase_options.dart';
 import 'package:flutter_reddit_clone/theme/pallete.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
