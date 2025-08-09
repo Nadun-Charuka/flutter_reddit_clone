@@ -86,4 +86,18 @@ class AuthRepository {
               UserModel.fromJson(snapshot.data() as Map<String, dynamic>),
         );
   }
+
+  FutureVoid logOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      return right(null);
+    } on FirebaseException catch (e) {
+      return left(Failure(e.message.toString()));
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  // Add this getter
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 }

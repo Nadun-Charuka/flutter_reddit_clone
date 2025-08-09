@@ -12,18 +12,32 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Image.asset(Constants.logoUrl, height: 40),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text("Skip", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
+      appBar: !isLoading
+          ? AppBar(
+              centerTitle: true,
+              title: Image.asset(Constants.logoUrl, height: 40),
+              actions: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            )
+          : null,
       body: isLoading
-          ? const Loader()
+          ? Scaffold(
+              body: Column(
+                spacing: 20,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Loggin.........."),
+                  Loader(),
+                ],
+              ),
+            )
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
